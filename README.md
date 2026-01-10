@@ -23,7 +23,7 @@ A minimalist habit and goal tracking app
 4. Open `http://localhost:5173`
 
 ## Live Demo
-[View Live Demo](TBD)
+[View Live Demo](https://goalflo-v1.vercel.app/)
 
 ## License
 MIT
