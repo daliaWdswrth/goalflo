@@ -13,7 +13,7 @@ import { initializeWidgetData, exportAllData, importData } from './utils/widgetU
 // Import components
 import { WidgetCard } from './components/widgetCard';
 import { ExpandedWidgetView } from './components/expandedWidgetView';
-import { Sidebar } from './components/Sidebar';
+import { Sidebar } from './components/sidebar';
 import { AddWidgetModal } from './components/addWidgetModal';
 import { SettingsModal } from './components/settingsModal';
 
