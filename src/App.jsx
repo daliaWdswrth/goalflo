@@ -11,11 +11,11 @@ import { useStorage } from './hooks/useStorage';
 import { initializeWidgetData, exportAllData, importData } from './utils/widgetUtils';
 
 // Import components
-import { WidgetCard } from './components/WidgetCard';
-import { ExpandedWidgetView } from './components/ExpandedWidgetView';
+import { WidgetCard } from './components/widgetCard';
+import { ExpandedWidgetView } from './components/expandedWidgetView';
 import { Sidebar } from './components/Sidebar';
-import { AddWidgetModal } from './components/AddWidgetModal';
-import { SettingsModal } from './components/SettingsModal';
+import { AddWidgetModal } from './components/addWidgetModal';
+import { SettingsModal } from './components/settingsModal';
 
 // ============================================================================
 // MAIN APP COMPONENT
