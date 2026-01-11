@@ -9,11 +9,20 @@ export default defineConfig({
   ],
   build: {
     sourcemap: false,
-    minify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks: undefined,
       }
+    },
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: false,
+        drop_debugger: true
+      }
     }
+  },
+  esbuild: {
+    logOverride: { 'this-is-undefined-in-esm': 'silent' }
   }
 })
