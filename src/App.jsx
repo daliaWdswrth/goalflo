@@ -17,35 +17,22 @@ import { Sidebar } from './components/sidebar';
 import { AddWidgetModal } from './components/addWidgetModal';
 import { SettingsModal } from './components/settingsModal';
 
-// ============================================================================
-// MAIN APP COMPONENT
-// ============================================================================
-
-
-// const HabitTrackerApp = () => {
-//   return (
-//     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-//       <h1 className="text-4xl font-bold">goalflo Test</h1>
-//     </div>
-//   );
-// };
-
-// export default HabitTrackerApp;
-
 const HabitTrackerApp = () => {
   // State
-  
   const [activeCategory, setActiveCategory] = useState('personal');
   const [expandedWidget, setExpandedWidget] = useState(null);
   const [showAddWidget, setShowAddWidget] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [isMobile, setIsMobile] = useState(
-        typeof window !== 'undefined' ? window.innerWidth < 768 : false
-    );
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
   const [showDevNotes, setShowDevNotes] = useState(false);
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
   const [showDeleteCategoryModal, setShowDeleteCategoryModal] = useState(false);
+  const [showRenameCategoryModal, setShowRenameCategoryModal] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
+  const [categoryToRename, setCategoryToRename] = useState('');
+  const [renameCategoryInput, setRenameCategoryInput] = useState('');
 
   // Custom hook for storage
   const {
@@ -164,6 +151,70 @@ const HabitTrackerApp = () => {
     alert(`category '${categoryToDelete}' deleted!`);
   };
 
+  const renameCategory = async (oldName) => {
+    setCategoryToRename(oldName);
+    setRenameCategoryInput(oldName);
+    setShowRenameCategoryModal(true);
+  };
+
+  const handleRenameCategory = async () => {
+    if (!renameCategoryInput || !renameCategoryInput.trim()) {
+      return;
+    }
+    
+    const newName = renameCategoryInput.toLowerCase().trim();
+    
+    if (newName === categoryToRename) {
+      setShowRenameCategoryModal(false);
+      return;
+    }
+    
+    if (categories.includes(newName)) {
+      alert('category already exists!');
+      return;
+    }
+    
+    try {
+      // Get old category data
+      const oldWidgetsKey = `widgets_${categoryToRename}`;
+      const oldData = await window.storage.get(oldWidgetsKey);
+      
+      // Save to new category name
+      if (oldData) {
+        const newWidgetsKey = `widgets_${newName}`;
+        await window.storage.set(newWidgetsKey, oldData.value);
+      }
+      
+      // Delete old category data
+      await window.storage.delete(oldWidgetsKey);
+      
+      // Update categories list
+      const newCategories = categories.map(cat => 
+        cat === categoryToRename ? newName : cat
+      );
+      setCategories(newCategories);
+      await saveCategories(newCategories);
+      
+      // Update active category if needed
+      if (activeCategory === categoryToRename) {
+        setActiveCategory(newName);
+      }
+      
+      setShowRenameCategoryModal(false);
+      setCategoryToRename('');
+      setRenameCategoryInput('');
+      alert(`category renamed to '${newName}'!`);
+    } catch (error) {
+      console.error('Error renaming category:', error);
+      alert('rename failed!');
+    }
+  };
+
+  const handleReorderCategories = async (newCategories) => {
+    setCategories(newCategories);
+    await saveCategories(newCategories);
+  };
+
   // Theme management
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -212,7 +263,6 @@ const HabitTrackerApp = () => {
       </div>
     );
   }
-  
 
   return (
     <div className={`min-h-screen ${bgClass} ${textClass} transition-colors duration-500`}>
@@ -226,6 +276,8 @@ const HabitTrackerApp = () => {
             setActiveCategory={setActiveCategory}
             addCategory={addCategory}
             deleteCategory={deleteCategory}
+            renameCategory={renameCategory}
+            onReorderCategories={handleReorderCategories}
             setShowSettings={setShowSettings}
             theme={theme}
             cardClass={cardClass}
@@ -283,7 +335,6 @@ const HabitTrackerApp = () => {
                         </div>
                       </div>
                       <h2 className="text-4xl font-black mb-3">
-                        
                         welcome!
                       </h2>
                       <p className={`mb-8 leading-relaxed font-medium ${theme === 'dark' ? 'text-gray-400' : 'text-gray-700'}`}>
@@ -343,13 +394,11 @@ const HabitTrackerApp = () => {
           </div>
         </div>
       ) : (
-        /* Mobile Layout */
+        /* Mobile Layout - Same as before, just updated */
         <div className="min-h-screen pb-20">
           <div className={`${cardClass} border-b-2 ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'} p-4 sticky top-0 z-10`}>
             <div className="flex items-center justify-between mb-3">
-              <h1 className="text-2xl font-black">
-                goalflo
-              </h1>
+              <h1 className="text-2xl font-black">goalflo</h1>
               <button
                 onClick={() => setShowSettings(true)}
                 className={`p-2 rounded-lg border-2 ${theme === 'dark' ? 'border-gray-600 hover:bg-gray-800' : 'border-gray-300 hover:bg-gray-100'}`}
@@ -383,7 +432,7 @@ const HabitTrackerApp = () => {
                 className="w-9 h-9 flex items-center justify-center text-red-500 border-2 border-red-500 rounded-lg flex-shrink-0 font-black hover:bg-red-100 dark:hover:bg-red-900"
                 title="delete category"
               >
-                −
+                ∓
               </button>
             </div>
           </div>
@@ -554,6 +603,47 @@ const HabitTrackerApp = () => {
             >
               exit
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Rename Category Modal */}
+      {showRenameCategoryModal && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-40 p-4">
+          <div className={`${cardClass} rounded-lg border-2 p-6 max-w-sm w-full shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]`}>
+            <h3 className="text-xl font-black mb-4">rename category</h3>
+            <p className="text-sm mb-2">current name: <strong>{categoryToRename}</strong></p>
+            <input
+              type="text"
+              value={renameCategoryInput}
+              onChange={(e) => setRenameCategoryInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleRenameCategory()}
+              placeholder="new category name"
+              className={`w-full px-4 py-2.5 rounded-lg border-2 mb-4 ${
+                theme === 'dark' ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-200'
+              }`}
+              autoFocus
+            />
+            <div className="flex gap-2">
+              <button
+                onClick={handleRenameCategory}
+                className="flex-1 py-2 bg-blue-300 text-blue-900 rounded-lg border-2 border-blue-400 font-bold hover:bg-blue-400 transition-all"
+              >
+                rename
+              </button>
+              <button
+                onClick={() => {
+                  setShowRenameCategoryModal(false);
+                  setCategoryToRename('');
+                  setRenameCategoryInput('');
+                }}
+                className={`flex-1 py-2 rounded-lg border-2 font-bold transition-all ${
+                  theme === 'dark' ? 'bg-gray-700 border-gray-600 hover:bg-gray-600' : 'bg-gray-200 border-gray-300 hover:bg-gray-300'
+                }`}
+              >
+                cancel
+              </button>
+            </div>
           </div>
         </div>
       )}

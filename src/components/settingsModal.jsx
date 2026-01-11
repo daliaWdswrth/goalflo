@@ -48,6 +48,16 @@ export const SettingsModal = ({
       date: "January 10, 2025",
       version: "v1.0.0",
       updates: [
+        "★ Couple new features + fixes ★",
+        "✧ Added drag-and-drop category reordering",
+        "✧ Added category renaming",
+        "✧ Updated goal widget preview"
+      ]
+    },
+    {
+      date: "January 11, 2025",
+      version: "v1.1.0",
+      updates: [
         "★ Initial release of goalflo ★",
         "✧ Added 6 widget types: Calendar, Goals, Journal, Tasks, Resources, and Focus",
         "✧ Light and dark theme support",
@@ -210,6 +220,8 @@ export const SettingsModal = ({
                   <li>calendar: click days to add emojis</li>
                   <li>tasks: completed items are hidden by default</li>
                   <li>switch themes in settings for comfort</li>
+                  <li>right click a category you want to rename</li>
+                  <li>click and drag categories to rearrange</li>
                 </ul>
                 
                 <p className="text-xs italic pt-2 border-t border-gray-400">
