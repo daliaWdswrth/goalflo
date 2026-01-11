@@ -390,7 +390,7 @@ const HabitTrackerApp = () => {
                 <div className={`w-16 h-16 mx-auto rounded-lg border-2 flex items-center justify-center mb-4 ${
                   theme === 'dark' ? 'bg-purple-600 border-purple-400' : 'bg-yellow-200 border-yellow-300'
                 }`}>
-                  <Sparkles size={32} className={theme === 'dark' ? 'text-white' : 'text-gray-900'} />
+                  <Star size={32} className={theme === 'dark' ? 'text-white' : 'text-gray-900'} />
                 </div>
                 <h2 className="text-2xl font-black mb-2">get started</h2>
                 <p className="text-gray-500 mb-6">add your first widget to start tracking</p>
