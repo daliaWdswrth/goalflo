@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Settings, Plus, Sparkles, Star } from 'lucide-react';
+import { Settings, Plus, Star } from 'lucide-react';
 
 // Import config
 import { WIDGET_TYPES, WIDGET_CONFIG } from './config/widgetConfig';
