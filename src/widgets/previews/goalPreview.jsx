@@ -1,4 +1,4 @@
-
+import React from 'react';
 
 export const GoalMonitorPreview = ({ data, theme }) => {
   const goals = (data.goals || []).slice(0, 4); // Limit to 4 goals

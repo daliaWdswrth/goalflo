@@ -1,3 +1,4 @@
+import React from 'react';
 import { WIDGET_TYPES } from '../config/widgetConfig';
 import { CalendarPreview } from './previews/calendarPreview';
 import { GoalMonitorPreview } from './previews/goalPreview';

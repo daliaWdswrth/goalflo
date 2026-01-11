@@ -1,3 +1,4 @@
+import React from 'react';
 import { WIDGET_CONFIG } from '../config/widgetConfig';
 import { WidgetPreview } from '../widgets/widgetPreview';
 

@@ -1,3 +1,4 @@
+import React from 'react';
 
 export const FocusPreview = ({ data, theme }) => {
   if (!data.focus) {

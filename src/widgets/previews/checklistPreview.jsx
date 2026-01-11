@@ -1,4 +1,4 @@
-
+import React from 'react';
 
 export const ChecklistPreview = ({ data, theme }) => {
   const allItems = data.items || [];

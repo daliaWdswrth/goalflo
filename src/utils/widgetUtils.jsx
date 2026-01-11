@@ -1,3 +1,4 @@
+import React from 'react';
 import { WIDGET_TYPES, WIDGET_CONFIG } from '../config/widgetConfig';
 
 export const formatCalendarData = (data) => {

@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { WIDGET_TYPES, WIDGET_CONFIG } from '../config/widgetConfig';
 import { CalendarEditor } from '../widgets/editors/calendarEditor';
 import { JournalEditor } from '../widgets/editors/journalEditor';

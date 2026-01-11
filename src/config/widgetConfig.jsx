@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { Calendar, TrendingUp, BookOpen, CheckSquare, Bookmark, Target, Settings, Plus, Moon, Sun, Sparkles } from 'lucide-react';
 
 export const WIDGET_TYPES = {
