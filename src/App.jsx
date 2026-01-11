@@ -34,10 +34,7 @@ import { SettingsModal } from './components/settingsModal';
 
 const HabitTrackerApp = () => {
   // State
-  console.log('=== APP RENDERING ===');
-  console.log('Window width:', window.innerWidth);
-  console.log('Is mobile:', window.innerWidth < 768);
-  console.log('Storage available:', typeof window.storage);
+  
   const [activeCategory, setActiveCategory] = useState('personal');
   const [expandedWidget, setExpandedWidget] = useState(null);
   const [showAddWidget, setShowAddWidget] = useState(false);
@@ -215,9 +212,7 @@ const HabitTrackerApp = () => {
       </div>
     );
   }
-  console.log('Active category:', activeCategory);
-  console.log('Loading state:', isLoading);
-  console.log('Widgets count:', widgets.length);
+  
 
   return (
     <div className={`min-h-screen ${bgClass} ${textClass} transition-colors duration-500`}>
@@ -422,10 +417,10 @@ const HabitTrackerApp = () => {
                   >
                     <div className="mb-3">
                       <div className="flex items-center gap-2 mb-2">
-                        {/* {React.createElement(WIDGET_CONFIG[widget.type].icon, { 
+                        {React.createElement(WIDGET_CONFIG[widget.type].icon, { 
                           size: 20,
                           className: WIDGET_CONFIG[widget.type].textColor
-                        })} */}
+                        })}
                         <h3 className="font-bold">{WIDGET_CONFIG[widget.type].label}</h3>
                       </div>
                       <div className={`h-1 rounded-full ${WIDGET_CONFIG[widget.type].color}`} />

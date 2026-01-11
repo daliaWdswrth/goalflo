@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 
 export const GoalMonitorEditor = ({ data, onUpdate, theme, inputClass }) => {
