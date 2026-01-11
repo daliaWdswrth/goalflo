@@ -45,8 +45,8 @@ export const SettingsModal = ({
   // Developer Updates - Edit this section with new updates
   const developerUpdates = [
     {
-      date: "January 10, 2025",
-      version: "v1.0.0",
+      date: "January 11, 2025",
+      version: "v1.1.0",
       updates: [
         "★ Couple new features + fixes ★",
         "✧ Added drag-and-drop category reordering",
@@ -55,8 +55,8 @@ export const SettingsModal = ({
       ]
     },
     {
-      date: "January 11, 2025",
-      version: "v1.1.0",
+      date: "January 10, 2025",
+      version: "v1.0.0",
       updates: [
         "★ Initial release of goalflo ★",
         "✧ Added 6 widget types: Calendar, Goals, Journal, Tasks, Resources, and Focus",
