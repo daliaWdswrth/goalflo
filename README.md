@@ -26,4 +26,4 @@ A minimalist habit and goal tracking app
 [View Live Demo](https://goalflo-v1.vercel.app/)
 
 ## License
-MIT
+Default Copyright
